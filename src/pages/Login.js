@@ -24,6 +24,10 @@ class Login extends React.Component {
         isEnterButtonDisabled: false,
         name: event.target.value,
       });
+    } else {
+      this.setState({
+        isEnterButtonDisabled: true,
+      });
     }
   }
 
