@@ -39,6 +39,7 @@ class Header extends React.Component {
     return (
       <div data-testid="header-component">
         <header>
+
           <ul>
             <li>
               <Link to="/search" data-testid="link-to-search">Search</Link>
@@ -49,7 +50,6 @@ class Header extends React.Component {
             <li>
               <Link to="/profile" data-testid="link-to-profile">Profile</Link>
             </li>
-
           </ul>
 
           <h3 data-testid="header-user-name">{ name }</h3>
