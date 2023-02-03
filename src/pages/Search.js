@@ -10,6 +10,7 @@ class Search extends React.Component {
       artistBand: '',
       loading: false,
       returnAPI: false,
+      arrayArtist: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -31,18 +32,21 @@ class Search extends React.Component {
   }
 
   async handleClick() {
-    const { artistBand } = this.state;
+    const { artistBand, arrayArtist } = this.state;
 
     this.setState({
       loading: true,
     });
 
-    await searchAlbumsAPIs(artistBand);
+    const array = await searchAlbumsAPIs(artistBand);
 
     this.setState({
       loading: false,
       returnAPI: true,
+      arrayArtist: array,
     });
+
+    console.log(arrayArtist);
   }
 
   render() {
@@ -73,11 +77,12 @@ class Search extends React.Component {
 
         {returnAPI
         === true
-          && <p>
-            `Resultado de álbuns de: $
-            {artistBand}
-            `
-             </p>}
+          && (
+            <p>
+              Resultado de álbuns de:
+              {' '}
+              { artistBand }
+            </p>)}
       </div>
     );
   }
