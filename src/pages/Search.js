@@ -1,13 +1,19 @@
 import React from 'react';
+import searchAlbumsAPIs from '../services/searchAlbumsAPI';
+import Loading from '../components/Loading';
 
 class Search extends React.Component {
   constructor() {
     super();
     this.state = {
       isEnterButtonDisabled: true,
+      artistBand: '',
+      loading: false,
+      returnAPI: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange(event) {
@@ -15,6 +21,7 @@ class Search extends React.Component {
     if (event.target.value.length >= characters) {
       this.setState({
         isEnterButtonDisabled: false,
+        artistBand: event.target.value,
       });
     } else {
       this.setState({
@@ -23,9 +30,25 @@ class Search extends React.Component {
     }
   }
 
-  render() {
-    const { isEnterButtonDisabled } = this.state;
+  async handleClick() {
+    const { artistBand } = this.state;
 
+    this.setState({
+      loading: true,
+    });
+
+    await searchAlbumsAPIs(artistBand);
+
+    this.setState({
+      loading: false,
+      returnAPI: true,
+    });
+  }
+
+  render() {
+    const { isEnterButtonDisabled, loading, returnAPI, artistBand } = this.state;
+
+    if (loading === true) return <Loading />;
     return (
       <div data-testid="page-search">
         <label htmlFor="search">
@@ -47,6 +70,14 @@ class Search extends React.Component {
           Pesquisar
 
         </button>
+
+        {returnAPI
+        === true
+          && <p>
+            `Resultado de álbuns de: $
+            {artistBand}
+            `
+             </p>}
       </div>
     );
   }
