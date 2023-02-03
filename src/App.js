@@ -7,6 +7,7 @@ import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
+import Header from './components/Header';
 
 class App extends React.Component {
   render() {
@@ -14,12 +15,33 @@ class App extends React.Component {
       <div>
         <p>TrybeTunes</p>
         <Switch>
-          <Route path="/search" component={ Search } />
-          <Route path="/album/:id" component={ Album } />
-          <Route path="/favorites" component={ Favorites } />
-          <Route path="/profile/edit" component={ ProfileEdit } />
-          <Route exact path="/profile" component={ Profile } />
           <Route exact path="/" component={ Login } />
+
+          <Route path="/search">
+            <Header />
+            <Search />
+          </Route>
+
+          <Route path="/album/:id">
+            <Header />
+            <Album />
+          </Route>
+
+          <Route path="/favorites">
+            <Header />
+            <Favorites />
+          </Route>
+
+          <Route path="/profile/edit">
+            <Header />
+            <ProfileEdit />
+          </Route>
+
+          <Route exact path="/profile">
+            <Header />
+            <Profile />
+          </Route>
+
           <Route path="*" component={ NotFound } />
         </Switch>
 

@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types';
 import React from 'react';
-import Loading from '../component/Loading';
+import Loading from '../components/Loading';
 import { createUser } from '../services/userAPI';
 
 class Login extends React.Component {
