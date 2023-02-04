@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes, { array } from 'prop-types';
+import PropTypes from 'prop-types';
 import getMusics from '../services/musicsAPI';
 
 class Album extends React.Component {
