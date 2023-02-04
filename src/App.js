@@ -22,10 +22,15 @@ class App extends React.Component {
             <Search />
           </Route>
 
-          <Route path="/album/:id">
-            <Header />
-            <Album />
-          </Route>
+          <Route
+            path="/album/:id"
+            render={ (props) => (
+              <div>
+                <Header />
+                {' '}
+                <Album { ...props } />
+              </div>) }
+          />
 
           <Route path="/favorites">
             <Header />
