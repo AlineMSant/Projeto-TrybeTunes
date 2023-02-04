@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import searchAlbumsAPIs from '../services/searchAlbumsAPI';
 import Loading from '../components/Loading';
 
@@ -8,6 +9,7 @@ class Search extends React.Component {
     this.state = {
       isEnterButtonDisabled: true,
       artistBand: '',
+      artist: '',
       loading: false,
       returnAPI: false,
       arrayArtist: [],
@@ -23,6 +25,7 @@ class Search extends React.Component {
       this.setState({
         isEnterButtonDisabled: false,
         artistBand: event.target.value,
+        artist: event.target.value,
       });
     } else {
       this.setState({
@@ -32,7 +35,7 @@ class Search extends React.Component {
   }
 
   async handleClick() {
-    const { artistBand, arrayArtist } = this.state;
+    const { artistBand } = this.state;
 
     this.setState({
       loading: true,
@@ -44,13 +47,17 @@ class Search extends React.Component {
       loading: false,
       returnAPI: true,
       arrayArtist: array,
+      artistBand: '',
     });
-
-    console.log(arrayArtist);
   }
 
   render() {
-    const { isEnterButtonDisabled, loading, returnAPI, artistBand } = this.state;
+    const {
+      isEnterButtonDisabled,
+      loading,
+      returnAPI,
+      artist,
+      arrayArtist } = this.state;
 
     if (loading === true) return <Loading />;
     return (
@@ -81,8 +88,29 @@ class Search extends React.Component {
             <p>
               Resultado de álbuns de:
               {' '}
-              { artistBand }
+              { artist }
             </p>)}
+
+        <ul>
+          {arrayArtist.length > 0
+            ? arrayArtist
+              .map((album, index) => (
+                <div key={ index }>
+                  <li>{ album.collectionName }</li>
+                  <Link
+                    to={ `/album/${album.collectionId}` }
+                    data-testid={ `link-to-album-${album.collectionId}` }
+                  >
+                    link
+
+                  </Link>
+
+                </div>
+              ))
+            : 'Nenhum álbum foi encontrado' }
+          {' '}
+        </ul>
+
       </div>
     );
   }
