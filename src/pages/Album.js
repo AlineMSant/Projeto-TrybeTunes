@@ -58,7 +58,7 @@ class Album extends React.Component {
     // console.log(trackNameArray);
     // console.log(previewUrlArray);
     // console.log(trackIdArray);
-    console.log(albumWhithoutIndexZero);
+    // console.log(albumWhithoutIndexZero);
 
     return (
       <div data-testid="page-album">

@@ -9,6 +9,7 @@ class MusicCard extends React.Component {
 
     this.state = {
       loading: false,
+      checkdArray: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -22,7 +23,13 @@ class MusicCard extends React.Component {
     });
 
     const fetchAddFavorite = await addSong(event.target.value);
-    console.log(fetchAddFavorite);
+    // console.log(fetchAddFavorite);
+
+    if (fetchAddFavorite === 'OK') {
+      this.setState((prevState) => ({
+        checkdArray: [...prevState.checkdArray, event.target.tabIndex],
+      }));
+    }
 
     this.setState({
       loading: false,
@@ -35,7 +42,9 @@ class MusicCard extends React.Component {
       trackIdArray,
       albumWhithoutIndexZero } = this.props;
 
-    const { loading } = this.state;
+    const { loading, checkdArray } = this.state;
+
+    console.log(checkdArray);
 
     if (loading === true) return <Loading />;
     return (
@@ -59,8 +68,10 @@ class MusicCard extends React.Component {
             <input
               id="check-favorite"
               type="checkbox"
+              tabIndex={ index }
               value={ albumWhithoutIndexZero[index] }
               onChange={ this.handleChange }
+              checked={ checkdArray.some((indice) => (indice === index)) }
             />
           </label>
         </div>))
