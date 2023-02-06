@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
 
 class MusicCard extends React.Component {
@@ -9,29 +9,32 @@ class MusicCard extends React.Component {
 
     this.state = {
       loading: false,
-      checkdArray: [],
+      favSong: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
+  async componentDidMount() {
+    this.setState({
+      favSong: await getFavoriteSongs(), // retorna array com todas as musicas favoritas no LocalStorage
+    });
+  }
+
   async handleChange(event) {
-    // console.log(event.target.value);
+    const { albumWhithoutIndexZero } = this.props;
 
     this.setState({
       loading: true,
     });
 
-    const fetchAddFavorite = await addSong(event.target.value);
-    // console.log(fetchAddFavorite);
+    await addSong(albumWhithoutIndexZero[event.target.tabIndex]); // manda musica favorita para LocalStorage
+    // console.log(albumWhithoutIndexZero[event.target.tabIndex]);
 
-    if (fetchAddFavorite === 'OK') {
-      this.setState((prevState) => ({
-        checkdArray: [...prevState.checkdArray, event.target.tabIndex],
-      }));
-    }
+    const fetchGetFavorite = await getFavoriteSongs(); // retorna array com todas as musicas favoritas no LocalStorage
 
     this.setState({
+      favSong: fetchGetFavorite,
       loading: false,
     });
   }
@@ -42,9 +45,11 @@ class MusicCard extends React.Component {
       trackIdArray,
       albumWhithoutIndexZero } = this.props;
 
-    const { loading, checkdArray } = this.state;
+    const { loading, favSong } = this.state;
 
-    console.log(checkdArray);
+    // console.log(favSong);
+    // console.log(trackIdArray);
+    // console.log(checkdArray);
 
     if (loading === true) return <Loading />;
     return (
@@ -71,7 +76,7 @@ class MusicCard extends React.Component {
               tabIndex={ index }
               value={ albumWhithoutIndexZero[index] }
               onChange={ this.handleChange }
-              checked={ checkdArray.some((indice) => (indice === index)) }
+              checked={ favSong.some((song) => song.trackId === trackIdArray[index]) }
             />
           </label>
         </div>))
