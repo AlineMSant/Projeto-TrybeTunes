@@ -31,7 +31,7 @@ class MusicCard extends React.Component {
     await addSong(albumWhithoutIndexZero[event.target.tabIndex]); // manda musica favorita para LocalStorage
     // console.log(albumWhithoutIndexZero[event.target.tabIndex]);
 
-    const fetchGetFavorite = await getFavoriteSongs(); // retorna array com todas as musicas favoritas no LocalStorage
+    const fetchGetFavorite = await getFavoriteSongs(); // retorna array com todas as musicas favoritas do LocalStorage
 
     this.setState({
       favSong: fetchGetFavorite,
@@ -66,12 +66,12 @@ class MusicCard extends React.Component {
           </audio>
 
           <label
-            htmlFor="check-favorite"
+            htmlFor={ trackIdArray[index] }
             data-testid={ `checkbox-music-${trackIdArray[index]}` }
           >
             Favorita
             <input
-              id="check-favorite"
+              id={ trackIdArray[index] }
               type="checkbox"
               tabIndex={ index }
               value={ albumWhithoutIndexZero[index] }
