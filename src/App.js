@@ -8,12 +8,12 @@ import ProfileEdit from './pages/ProfileEdit';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Header from './components/Header';
+import './Album.css';
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <p>TrybeTunes</p>
         <Switch>
           <Route exact path="/" component={ Login } />
 
@@ -25,9 +25,8 @@ class App extends React.Component {
           <Route
             path="/album/:id"
             render={ (props) => (
-              <div>
+              <div className="album-container-app">
                 <Header />
-                {' '}
                 <Album { ...props } />
               </div>) }
           />

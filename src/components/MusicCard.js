@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
+import '../Album.css';
 
 class MusicCard extends React.Component {
   constructor() {
@@ -54,9 +55,8 @@ class MusicCard extends React.Component {
     if (loading === true) return <Loading />;
     return (
       trackArray.map((trackName, index) => (
-        <div key={ index }>
-          {' '}
-          { trackName }
+        <div key={ index } className="music">
+          <p>{ trackName }</p>
           <audio data-testid="audio-component" src={ previewArray[index] } controls>
             <track kind="captions" />
             O seu navegador não suporta o elemento
@@ -69,9 +69,10 @@ class MusicCard extends React.Component {
             htmlFor={ trackIdArray[index] }
             data-testid={ `checkbox-music-${trackIdArray[index]}` }
           >
-            Favorita
+            {/* Favorita */}
             <input
               id={ trackIdArray[index] }
+              className="input"
               type="checkbox"
               tabIndex={ index }
               value={ albumWhithoutIndexZero[index] }

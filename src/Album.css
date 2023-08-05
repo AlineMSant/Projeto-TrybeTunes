@@ -1,0 +1,80 @@
+/* stylelint-disable selector-no-qualifying-type */
+/* stylelint-disable selector-pseudo-element-colon-notation */
+/* stylelint-disable selector-attribute-brackets-space-inside */
+.album-container-app {
+  height: 100%;
+}
+
+.album-container {
+  margin-left: 230px;
+  color: white;
+  font-family: Roboto Condensed , sans-serif;
+}
+
+.album-header {
+  color: white;
+  display: flex;
+  font-family: Roboto Condensed , sans-serif;
+  height: 170px;
+  justify-content: center;
+  margin-bottom: 100px;
+  margin-left: 50px;
+}
+
+.album-header img {
+  margin: 20px;
+  max-height: 130px;
+}
+
+.music {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.music p {
+  width: 200px;
+}
+
+.music audio {
+  margin-right: 30px;
+  width: 400px;
+}
+
+.music label .input {
+  appearance: none;
+  background-color: white;
+  height: 10px;
+  margin-top: 20px;
+  outline: none;
+  transform: rotate(45deg);
+  width: 10px;
+}
+
+.music label .input:before {
+  background-color: white;
+  border-radius: 75px 75px 0 0;
+  content: '';
+  height: 70%;
+  position: absolute;
+  top: -59%;
+  width: 100%;
+}
+
+.music label .input:after {
+  background-color: white;
+  border-radius: 75px 75px 0 0;
+  content: '';
+  height: 70%;
+  position: absolute;
+  right: 79%;
+  top: 16%;
+  transform: rotate(-90deg);
+  width: 100%;
+}
+
+.music label .input:checked, input:checked[type = 'checkbox']::before, input:checked[type = 'checkbox']::after {
+  background-color: #e00000;
+}
+

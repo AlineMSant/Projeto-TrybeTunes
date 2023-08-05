@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Loading from './Loading';
 import { getUser } from '../services/userAPI';
+import Logo from './Logo';
+import '../Header.css';
 
 class Header extends React.Component {
   constructor() {
@@ -38,7 +40,8 @@ class Header extends React.Component {
     if (loading === true) return <Loading />;
     return (
       <div data-testid="header-component">
-        <header>
+        <header className="header-container">
+          <Logo />
 
           <ul>
             <li>

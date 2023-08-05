@@ -2,6 +2,8 @@ import { PropTypes } from 'prop-types';
 import React from 'react';
 import Loading from '../components/Loading';
 import { createUser } from '../services/userAPI';
+import Logo from '../components/Logo';
+import '../App.css';
 
 class Login extends React.Component {
   constructor() {
@@ -53,27 +55,31 @@ class Login extends React.Component {
 
     if (loading === true) return <Loading />;
     return (
-      <div data-testid="page-login">
+      <div data-testid="page-login" className="container-login">
+        <div className="login">
+          <Logo />
 
-        <label htmlFor="name">
-          Name
-          <input
-            id="name"
-            type="text"
-            data-testid="login-name-input"
-            onChange={ this.handleChange }
-          />
-        </label>
+          <label htmlFor="name">
+            <input
+              id="name"
+              type="text"
+              data-testid="login-name-input"
+              placeholder="qual é o seu nome?"
+              onChange={ this.handleChange }
+            />
+          </label>
 
-        <button
-          type="button"
-          data-testid="login-submit-button"
-          disabled={ isEnterButtonDisabled }
-          onClick={ this.handleClick }
-        >
-          Entrar
+          <button
+            type="button"
+            data-testid="login-submit-button"
+            disabled={ isEnterButtonDisabled }
+            onClick={ this.handleClick }
+          >
+            Entrar
 
-        </button>
+          </button>
+
+        </div>
 
       </div>
     );

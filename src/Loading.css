@@ -1,0 +1,28 @@
+.loading-container {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+
+}
+
+.loader {
+  animation: is-rotating 1s infinite;
+  border: 6px solid #e5e5e5;
+  border-radius: 50%;
+  border-top-color: green;
+  height: 50px;
+  margin-right: 5px;
+  width: 50px;
+}
+
+@keyframes is-rotating {
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.loading-text {
+  font-family: Londrina Solid , cursive;
+}

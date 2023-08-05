@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
+import '../Album.css';
 
 class Album extends React.Component {
   constructor() {
@@ -10,6 +11,7 @@ class Album extends React.Component {
     this.state = {
       artistBandName: '',
       album: '',
+      image: '',
       trackNameArray: [],
       previewUrlArray: [],
       trackIdArray: [],
@@ -26,13 +28,14 @@ class Album extends React.Component {
   async fetchAPI() {
     const { match: { params: { id } } } = this.props;
     const arrayAlbum = await getMusics(id);
-    const { artistName, collectionName } = arrayAlbum[0];
+    const { artistName, collectionName, artworkUrl100 } = arrayAlbum[0];
 
-    // console.log(arrayAlbum);
+    console.log(arrayAlbum);
 
     this.setState({
       artistBandName: { artistName },
       album: collectionName,
+      image: artworkUrl100,
     });
 
     for (let i = 1; i < arrayAlbum.length; i += 1) {
@@ -49,6 +52,7 @@ class Album extends React.Component {
     const {
       artistBandName,
       album,
+      image,
       trackNameArray,
       previewUrlArray,
       trackIdArray,
@@ -61,10 +65,14 @@ class Album extends React.Component {
     // console.log(albumWhithoutIndexZero);
 
     return (
-      <div data-testid="page-album">
-        <h1>Album</h1>
-        <h2 data-testid="artist-name">{ name }</h2>
-        <h3 data-testid="album-name">{ album }</h3>
+      <div data-testid="page-album" className="album-container">
+        <div className="album-header">
+          <img src={ image } alt={ name } />
+          <div>
+            <h2 data-testid="artist-name">{ name }</h2>
+            <h3 data-testid="album-name">{ album }</h3>
+          </div>
+        </div>
         <MusicCard
           trackArray={ trackNameArray }
           previewArray={ previewUrlArray }

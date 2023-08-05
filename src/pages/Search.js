@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import searchAlbumsAPIs from '../services/searchAlbumsAPI';
 import Loading from '../components/Loading';
+import '../Search.css';
 
 class Search extends React.Component {
   constructor() {
@@ -62,27 +63,32 @@ class Search extends React.Component {
     if (loading === true) return <Loading />;
     return (
       <div data-testid="page-search">
-        <label htmlFor="search">
-          Search
-          <input
-            id="search"
-            type="text"
-            data-testid="search-artist-input"
-            onChange={ this.handleChange }
-          />
-        </label>
+        <div className="search-container">
+          <label htmlFor="search">
+            <input
+              id="search"
+              type="text"
+              data-testid="search-artist-input"
+              onChange={ this.handleChange }
+              placeholder="Digite sua pesquisa"
+            />
+          </label>
 
-        <button
-          type="button"
-          data-testid="search-artist-button"
-          disabled={ isEnterButtonDisabled }
-          onClick={ this.handleClick }
-        >
-          Pesquisar
+          <button
+            type="button"
+            data-testid="search-artist-button"
+            disabled={ isEnterButtonDisabled }
+            onClick={ this.handleClick }
+          >
+            Pesquisar
 
-        </button>
+          </button>
 
-        {returnAPI
+        </div>
+
+        <div className="return-search-container">
+          <div className="return-search-p">
+            {returnAPI
         === true
           && (
             <p>
@@ -91,25 +97,28 @@ class Search extends React.Component {
               { artist }
             </p>)}
 
-        <ul>
-          {arrayArtist.length > 0
-            ? arrayArtist
-              .map((album, index) => (
-                <div key={ index }>
-                  <li>{ album.collectionName }</li>
-                  <Link
-                    to={ `/album/${album.collectionId}` }
-                    data-testid={ `link-to-album-${album.collectionId}` }
-                  >
-                    Mais informações
+          </div>
 
-                  </Link>
+          <ul>
+            {arrayArtist.length > 0
+              ? arrayArtist
+                .map((album, index) => (
+                  <div key={ index }>
+                    <Link
+                      to={ `/album/${album.collectionId}` }
+                      data-testid={ `link-to-album-${album.collectionId}` }
+                    >
+                      <img src={ album.artworkUrl100 } alt={ album.collectionName } />
+                    </Link>
+                    <li>{ album.collectionName }</li>
 
-                </div>
-              ))
-            : 'Nenhum álbum foi encontrado' }
-          {' '}
-        </ul>
+                  </div>
+                ))
+              : 'Nenhum álbum foi encontrado' }
+            {' '}
+          </ul>
+
+        </div>
 
       </div>
     );
